@@ -135,12 +135,51 @@ for frame in capture_session:
 - 🟢 Green: Good coverage - WELL SCANNED
 - 🔵 Blue: Excellent coverage - OPTIMAL
 
+## Accuracy Enhancements (NEW!)
+
+Version 2.1.0 introduces comprehensive accuracy improvements:
+
+```python
+from glass_fracture_forensics import (
+    AccuracyEnhancedCaptureValidator,
+    bootstrap_origin_estimation,
+    generate_validation_report,
+)
+
+# Enhanced capture validation with accurate metrics
+validator = AccuracyEnhancedCaptureValidator(thresholds, camera_matrix, image_size)
+quality = validator.validate_tracks_accurate(tracks)
+
+# Statistical validation with bootstrap
+bootstrap_result = bootstrap_origin_estimation(
+    trajectories, origin_estimator, n_bootstrap=1000
+)
+
+# Comprehensive validation report
+validation_report = generate_validation_report(
+    origin_estimate, trajectories, stress_factors,
+    failure_mode, origin_estimator, mechanics_analyzer
+)
+```
+
+**Improvements:**
+- ✅ Accurate parallax computation from track motion
+- ✅ Grid-based spatial coverage assessment
+- ✅ Uncertainty propagation through pipeline
+- ✅ Reprojection error validation
+- ✅ Bootstrap confidence intervals
+- ✅ Monte Carlo error propagation
+- ✅ Outlier detection (Z-score, IQR, Mahalanobis)
+- ✅ Statistical hypothesis testing
+- ✅ Cross-validation for robustness
+
 ## Examples
 
 See the `examples/` directory for complete usage examples:
 
 - `basic_analysis.py`: Basic forensic analysis workflow
 - `realtime_scan_feedback.py`: AR-guided scan coverage demo with live quality visualization
+- `accuracy_enhanced_analysis.py`: Complete pipeline with accuracy enhancements and statistical validation
 
 ## Project Structure
 
@@ -149,22 +188,25 @@ keyboard-jangin/
 ├── src/
 │   └── glass_fracture_forensics/
 │       ├── __init__.py
-│       ├── forensic_system.py      # Main forensic pipeline
-│       └── realtime_feedback.py    # AR scan feedback system
-├── tests/                          # Unit tests
+│       ├── forensic_system.py           # Main forensic pipeline
+│       ├── realtime_feedback.py         # AR scan feedback system
+│       ├── accuracy_improvements.py     # Accuracy enhancements
+│       └── statistical_validation.py    # Statistical validation tools
+├── tests/                                # Unit tests
 │   ├── test_forensic_system.py
 │   └── test_realtime_feedback.py
-├── examples/                       # Example scripts
+├── examples/                             # Example scripts
 │   ├── basic_analysis.py
-│   └── realtime_scan_feedback.py
-├── config/                         # Configuration files
+│   ├── realtime_scan_feedback.py
+│   └── accuracy_enhanced_analysis.py
+├── config/                               # Configuration files
 │   └── default_config.yaml
-├── docs/                           # Documentation
+├── docs/                                 # Documentation
 │   └── improvement_analysis.md
-├── output/                         # Output directory (reports, viz)
-├── requirements.txt                # Python dependencies
-├── setup.py                        # Package setup
-└── README.md                       # This file
+├── output/                               # Output directory (reports, viz)
+├── requirements.txt                      # Python dependencies
+├── setup.py                              # Package setup
+└── README.md                             # This file
 ```
 
 ## Pipeline

@@ -28,7 +28,24 @@ from .realtime_feedback import (
     integrate_realtime_feedback,
 )
 
-__version__ = "2.0.0"
+from .accuracy_improvements import (
+    compute_mean_parallax,
+    compute_spatial_coverage,
+    compute_reprojection_error,
+    propagate_triangulation_uncertainty,
+    AccuracyEnhancedCaptureValidator,
+    SpatialCoverageGrid,
+)
+
+from .statistical_validation import (
+    bootstrap_origin_estimation,
+    generate_validation_report,
+    robust_outlier_detection,
+    OutlierMethod,
+    BootstrapResult,
+)
+
+__version__ = "2.1.0"
 __all__ = [
     # Core forensic system
     "GlassFractureForensicSystem",
@@ -45,4 +62,17 @@ __all__ = [
     "ScanQuality",
     "ARFeedbackOverlay",
     "integrate_realtime_feedback",
+    # Accuracy improvements
+    "compute_mean_parallax",
+    "compute_spatial_coverage",
+    "compute_reprojection_error",
+    "propagate_triangulation_uncertainty",
+    "AccuracyEnhancedCaptureValidator",
+    "SpatialCoverageGrid",
+    # Statistical validation
+    "bootstrap_origin_estimation",
+    "generate_validation_report",
+    "robust_outlier_detection",
+    "OutlierMethod",
+    "BootstrapResult",
 ]
