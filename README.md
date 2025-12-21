@@ -88,12 +88,59 @@ print(f"Failure mode: {report.failure_mode.value}")
 system.save_report(report, output_dir="output")
 ```
 
+## Real-Time Scan Feedback (NEW!)
+
+The system now includes AR-guided real-time scan feedback for optimal capture quality:
+
+```python
+from glass_fracture_forensics import (
+    ScanCoverageTracker,
+    VoxelGrid,
+    ARFeedbackOverlay,
+)
+
+# Define scan volume
+scan_bounds = (np.array([-0.5, -0.5, 0.0]), np.array([0.5, 0.5, 0.5]))
+
+# Create voxel-based coverage tracker
+voxel_grid = VoxelGrid(
+    bounds_min=scan_bounds[0],
+    bounds_max=scan_bounds[1],
+    resolution=0.02  # 2cm voxels
+)
+
+tracker = ScanCoverageTracker(voxel_grid, camera_matrix)
+
+# During AR capture loop:
+for frame in capture_session:
+    points_3d, camera_pose = process_frame(frame)
+
+    # Update coverage
+    tracker.update_from_points(points_3d, camera_pose)
+    tracker.compute_coverage_quality()
+
+    # Generate AR overlay
+    heatmap = tracker.generate_heatmap_2d(camera_pose, image_size)
+    is_complete, stats = tracker.is_scan_complete()
+
+    # Display guidance to user
+    if not is_complete:
+        rescan_regions = tracker.get_rescan_regions()
+        show_rescan_hints(rescan_regions)
+```
+
+**Visual Feedback:**
+- 🔴 Red: Unscanned or poor quality - SCAN HERE
+- 🟡 Yellow: Partial coverage - NEEDS MORE VIEWS
+- 🟢 Green: Good coverage - WELL SCANNED
+- 🔵 Blue: Excellent coverage - OPTIMAL
+
 ## Examples
 
 See the `examples/` directory for complete usage examples:
 
 - `basic_analysis.py`: Basic forensic analysis workflow
-- More examples coming soon...
+- `realtime_scan_feedback.py`: AR-guided scan coverage demo with live quality visualization
 
 ## Project Structure
 
@@ -102,13 +149,18 @@ keyboard-jangin/
 ├── src/
 │   └── glass_fracture_forensics/
 │       ├── __init__.py
-│       └── forensic_system.py      # Main system implementation
+│       ├── forensic_system.py      # Main forensic pipeline
+│       └── realtime_feedback.py    # AR scan feedback system
 ├── tests/                          # Unit tests
+│   ├── test_forensic_system.py
+│   └── test_realtime_feedback.py
 ├── examples/                       # Example scripts
-│   └── basic_analysis.py
+│   ├── basic_analysis.py
+│   └── realtime_scan_feedback.py
 ├── config/                         # Configuration files
 │   └── default_config.yaml
 ├── docs/                           # Documentation
+│   └── improvement_analysis.md
 ├── output/                         # Output directory (reports, viz)
 ├── requirements.txt                # Python dependencies
 ├── setup.py                        # Package setup

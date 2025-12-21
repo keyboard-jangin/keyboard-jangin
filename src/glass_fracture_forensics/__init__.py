@@ -20,8 +20,17 @@ from .forensic_system import (
     StressIntensityFactors,
 )
 
+from .realtime_feedback import (
+    ScanCoverageTracker,
+    VoxelGrid,
+    ScanQuality,
+    ARFeedbackOverlay,
+    integrate_realtime_feedback,
+)
+
 __version__ = "2.0.0"
 __all__ = [
+    # Core forensic system
     "GlassFractureForensicSystem",
     "ForensicReport",
     "FailureMode",
@@ -30,4 +39,10 @@ __all__ = [
     "OriginEstimate",
     "Trajectory3D",
     "StressIntensityFactors",
+    # Real-time feedback
+    "ScanCoverageTracker",
+    "VoxelGrid",
+    "ScanQuality",
+    "ARFeedbackOverlay",
+    "integrate_realtime_feedback",
 ]
