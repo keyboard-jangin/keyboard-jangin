@@ -45,7 +45,26 @@ from .statistical_validation import (
     BootstrapResult,
 )
 
-__version__ = "2.1.0"
+from .video_processing import (
+    VideoProcessor,
+    CaptureSession,
+    VideoFrame,
+    FractureDetector,
+    FrameSelector,
+)
+
+from .fracture_waveform_analysis import (
+    CrackPath,
+    FractureWaveform,
+    WaveformAnalyzer,
+    analyze_fracture_from_mask,
+)
+
+from .visualization_engine import (
+    ForensicVisualizer,
+)
+
+__version__ = "2.2.0"
 __all__ = [
     # Core forensic system
     "GlassFractureForensicSystem",
@@ -75,4 +94,17 @@ __all__ = [
     "robust_outlier_detection",
     "OutlierMethod",
     "BootstrapResult",
+    # Video processing
+    "VideoProcessor",
+    "CaptureSession",
+    "VideoFrame",
+    "FractureDetector",
+    "FrameSelector",
+    # Waveform analysis
+    "CrackPath",
+    "FractureWaveform",
+    "WaveformAnalyzer",
+    "analyze_fracture_from_mask",
+    # Visualization
+    "ForensicVisualizer",
 ]

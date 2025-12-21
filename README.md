@@ -173,6 +173,45 @@ validation_report = generate_validation_report(
 - ✅ Statistical hypothesis testing
 - ✅ Cross-validation for robustness
 
+## Video Processing & Advanced Analysis (NEW in 2.2!)
+
+Complete video-based capture and analysis pipeline:
+
+```python
+from glass_fracture_forensics import (
+    VideoProcessor,
+    FractureDetector,
+    WaveformAnalyzer,
+    ForensicVisualizer,
+)
+
+# Video capture and processing
+processor = VideoProcessor(
+    source=CaptureSource.CAMERA,
+    target_fps=10
+)
+
+session = processor.capture_session(camera_matrix)
+
+# Fracture waveform analysis
+waveform_analyzer = WaveformAnalyzer()
+waveform = waveform_analyzer.path_to_waveform(crack_path)
+waveform.compute_fft()
+
+# Advanced visualization
+visualizer = ForensicVisualizer(dpi=150)
+fig = visualizer.plot_3d_trajectories(trajectories, origin, covariance)
+visualizer.create_summary_figure(report)
+```
+
+**New Capabilities:**
+- 🎥 Real-time video processing and frame extraction
+- 🔍 Automatic fracture detection and segmentation
+- 📊 Waveform analysis with FFT
+- 🌊 Crack pattern characterization (tortuosity, roughness)
+- 📈 Publication-quality visualizations
+- 🎨 3D rendering with uncertainty ellipsoids
+
 ## Examples
 
 See the `examples/` directory for complete usage examples:
@@ -188,25 +227,28 @@ keyboard-jangin/
 ├── src/
 │   └── glass_fracture_forensics/
 │       ├── __init__.py
-│       ├── forensic_system.py           # Main forensic pipeline
-│       ├── realtime_feedback.py         # AR scan feedback system
-│       ├── accuracy_improvements.py     # Accuracy enhancements
-│       └── statistical_validation.py    # Statistical validation tools
-├── tests/                                # Unit tests
+│       ├── forensic_system.py                 # Main forensic pipeline
+│       ├── realtime_feedback.py               # AR scan feedback system
+│       ├── accuracy_improvements.py           # Accuracy enhancements
+│       ├── statistical_validation.py          # Statistical validation
+│       ├── video_processing.py                # Video capture & processing
+│       ├── fracture_waveform_analysis.py      # Waveform analysis
+│       └── visualization_engine.py            # Advanced visualization
+├── tests/                                      # Unit tests
 │   ├── test_forensic_system.py
 │   └── test_realtime_feedback.py
-├── examples/                             # Example scripts
+├── examples/                                   # Example scripts
 │   ├── basic_analysis.py
 │   ├── realtime_scan_feedback.py
 │   └── accuracy_enhanced_analysis.py
-├── config/                               # Configuration files
+├── config/                                     # Configuration files
 │   └── default_config.yaml
-├── docs/                                 # Documentation
+├── docs/                                       # Documentation
 │   └── improvement_analysis.md
-├── output/                               # Output directory (reports, viz)
-├── requirements.txt                      # Python dependencies
-├── setup.py                              # Package setup
-└── README.md                             # This file
+├── output/                                     # Output directory (reports, viz)
+├── requirements.txt                            # Python dependencies
+├── setup.py                                    # Package setup
+└── README.md                                   # This file
 ```
 
 ## Pipeline
