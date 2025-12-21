@@ -1,0 +1,118 @@
+# Glass Fracture Forensic System - Default Configuration
+# ========================================================
+
+# Material Properties (Soda-Lime Glass - ASTM C1036)
+material:
+  # Young's Modulus [Pa]
+  E: 72.0e9
+
+  # Poisson's Ratio
+  nu: 0.23
+
+  # Fracture Toughness [Pa·√m]
+  K_Ic: 0.75e6
+
+  # Density [kg/m³]
+  rho: 2500.0
+
+  # Stress state: 'plane_stress' or 'plane_strain'
+  stress_state: 'plane_stress'
+
+
+# System Thresholds
+thresholds:
+  # Capture Quality
+  capture:
+    min_parallax_angle: 5.0        # degrees
+    fb_error_threshold: 1.0        # pixels
+    min_track_length: 5            # frames
+    min_valid_tracks: 10
+    coverage_grid_size: [4, 4]
+    min_coverage_fraction: 0.6
+
+  # 3D Reconstruction
+  reconstruction:
+    ransac_threshold: 1.0e-3       # normalized coordinates
+    ransac_confidence: 0.999
+    min_inlier_ratio: 0.7
+    min_translation: 0.1           # relative
+    max_reprojection_error: 2.0    # pixels
+
+  # Origin Estimation
+  origin:
+    max_condition_number: 1.0e6
+    parallel_threshold: 0.99       # cos(8°)
+    min_covariance_det: 1.0e-12
+
+  # Fracture Mechanics
+  mechanics:
+    K_0: 0.375e6                   # Pa·√m (50% of K_Ic)
+    curvature_window: 5
+
+  # Uncertainty Quantification
+  uncertainty:
+    chi2_critical_3dof: 7.815      # 95% confidence, 3 DOF
+    low_parallax_penalty: 2.0
+    low_inlier_penalty: 1.5
+
+  # Failure Mode Classification
+  classification:
+    high_curvature_threshold: 0.5  # 1/unit
+    low_curvature_threshold: 0.1
+    high_branch_density: 10.0      # branches/area
+    low_branch_density: 2.0
+    localized_spread: 0.1          # relative
+    diffuse_spread: 0.5
+
+
+# Camera Configuration
+camera:
+  # Intrinsic matrix (example values - MUST be calibrated for production)
+  focal_length: 800.0              # pixels
+  principal_point: [320.0, 240.0]  # [cx, cy] pixels
+  image_size: [640, 480]           # [width, height]
+
+  # Distortion coefficients (if needed)
+  distortion: [0.0, 0.0, 0.0, 0.0, 0.0]  # [k1, k2, p1, p2, k3]
+
+
+# Processing Options
+processing:
+  # Feature tracking
+  feature_tracking:
+    max_corners: 500
+    quality_level: 0.01
+    min_distance: 10
+    block_size: 7
+
+  # Optical flow (Lucas-Kanade)
+  optical_flow:
+    win_size: [21, 21]
+    max_level: 3
+    max_iterations: 30
+    epsilon: 0.01
+
+
+# Output Configuration
+output:
+  # Directory for forensic reports
+  reports_dir: "output/reports"
+
+  # Directory for visualization
+  viz_dir: "output/visualization"
+
+  # Save format
+  format: "json"  # json, yaml, or pkl
+
+  # Compression
+  compress: false
+
+  # Include debug information
+  debug: false
+
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "output/forensic_analysis.log"
