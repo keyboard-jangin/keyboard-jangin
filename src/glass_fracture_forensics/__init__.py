@@ -86,7 +86,16 @@ from .chain_of_custody import (
     ForensicEvidencePackage,
 )
 
-__version__ = "2.3.0"
+from .intelligent_capture_guidance import (
+    IntelligentCaptureGuidance,
+    LightingProfile,
+    LightingMode,
+    OpticalProperties,
+    CaptureRecommendation,
+    LIGHTING_PROFILES,
+)
+
+__version__ = "2.4.0"
 __all__ = [
     # Core forensic system
     "GlassFractureForensicSystem",
@@ -145,4 +154,11 @@ __all__ = [
     "ChainOfCustody",
     "EvidenceEntry",
     "ForensicEvidencePackage",
+    # Intelligent capture guidance
+    "IntelligentCaptureGuidance",
+    "LightingProfile",
+    "LightingMode",
+    "OpticalProperties",
+    "CaptureRecommendation",
+    "LIGHTING_PROFILES",
 ]
