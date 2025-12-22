@@ -64,7 +64,29 @@ from .visualization_engine import (
     ForensicVisualizer,
 )
 
-__version__ = "2.2.0"
+from .advanced_physics_models import (
+    DynamicStressIntensity,
+    MixedModeFracture,
+    CrackEnergyBalance,
+    ThermalStressAnalysis,
+    ResidualStressEstimator,
+    PhysicsValidator,
+)
+
+from .scientific_references import (
+    ScientificReference,
+    ReferenceDatabase,
+    ReferenceType,
+    generate_traceability_matrix,
+)
+
+from .chain_of_custody import (
+    ChainOfCustody,
+    EvidenceEntry,
+    ForensicEvidencePackage,
+)
+
+__version__ = "2.3.0"
 __all__ = [
     # Core forensic system
     "GlassFractureForensicSystem",
@@ -107,4 +129,20 @@ __all__ = [
     "analyze_fracture_from_mask",
     # Visualization
     "ForensicVisualizer",
+    # Advanced physics
+    "DynamicStressIntensity",
+    "MixedModeFracture",
+    "CrackEnergyBalance",
+    "ThermalStressAnalysis",
+    "ResidualStressEstimator",
+    "PhysicsValidator",
+    # Scientific references
+    "ScientificReference",
+    "ReferenceDatabase",
+    "ReferenceType",
+    "generate_traceability_matrix",
+    # Chain of custody
+    "ChainOfCustody",
+    "EvidenceEntry",
+    "ForensicEvidencePackage",
 ]
