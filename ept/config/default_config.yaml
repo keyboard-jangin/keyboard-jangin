@@ -1,0 +1,32 @@
+# EPT 기본 설정 파일
+
+# 시스템 설정
+system:
+  name: "EPT - Equipment Performance Testing"
+  version: "0.1.0"
+  language: "ko"
+
+# 데이터 경로
+paths:
+  input_dir: "data/input"
+  output_dir: "data/output"
+  reports_dir: "reports"
+
+# 분석 설정
+analysis:
+  # 성능 지표 임계값
+  thresholds:
+    efficiency_min: 0.85
+    availability_min: 0.95
+    quality_min: 0.99
+
+  # 샘플링 설정
+  sampling:
+    interval_seconds: 60
+    aggregation_method: "mean"
+
+# 보고서 설정
+report:
+  format: "pdf"
+  include_charts: true
+  language: "ko"
